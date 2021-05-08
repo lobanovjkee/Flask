@@ -1,8 +1,15 @@
-from flask import Flask, request
+from flask import Flask
 
-app = Flask(__name__)
+from blog.articles.views import article
+from blog.users.views import user
 
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
-    return f'This is a {request.method} request!'
+def create_app() -> Flask:
+    app = Flask(__name__)
+    register_blueprint(app)
+    return app
+
+
+def register_blueprint(app: Flask):
+    app.register_blueprint(user)
+    app.register_blueprint(article)
