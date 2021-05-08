@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
 {% block title %}
- {{ article.title }}
+    {{ article.title }}
 {% endblock %}
 
 {% block content %}
     <div class="mt-4">
-    <h1>{{ article.title }}</h1>
-    <p>{{ article.text }}</p>
+        <h1>{{ article.title }}</h1>
+        <p>{{ article.text }}</p>
 
-    <h3><a href="{{ url_for('user.get_user', pk=article.author.id) }}">{{ article.author.name }}</a></h3>
+        <h3><a href="{{ url_for('user.get_user', pk=article.author.id) }}">{{ article.author.name }}</a></h3>
     </div>
 {% endblock %}

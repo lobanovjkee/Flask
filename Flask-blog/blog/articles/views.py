@@ -65,7 +65,7 @@ def articles_list():
 
 @article.route('/<int:pk>')
 def get_article(pk: int):
-    article_info = ARTICLES[pk-1]
+    article_info = ARTICLES[pk - 1]
     return render_template(
         'articles/article.html',
         article=article_info,

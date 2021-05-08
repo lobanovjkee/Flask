@@ -21,5 +21,5 @@ def users_list():
 
 @user.route('/<int:pk>')
 def get_user(pk: int):
-    user_info = USERS[pk-1]
+    user_info = USERS[pk - 1]
     return render_template('users/user.html', user=user_info)
