@@ -54,11 +54,10 @@ ARTICLES = [
 
 @article.route('/')
 def articles_list():
-    req = request
     articles = ARTICLES
     return render_template(
         'articles/list.html',
-        request=req,
+        request=request,
         articles=articles,
     )
 
