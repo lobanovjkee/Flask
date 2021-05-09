@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect, url_for
 
 user = Blueprint('user', __name__, url_prefix='/users', static_folder='../static')
 
@@ -21,5 +21,8 @@ def users_list():
 
 @user.route('/<int:pk>')
 def get_user(pk: int):
-    user_info = USERS[pk - 1]
-    return render_template('users/user.html', user=user_info)
+    try:
+        user_info = USERS[pk - 1]
+        return render_template('users/user.html', user=user_info)
+    except IndexError:
+        return redirect(url_for('user.users_list'))

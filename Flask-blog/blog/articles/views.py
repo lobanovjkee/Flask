@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect, url_for
 from blog.users.views import USERS
 
 article = Blueprint('article', __name__, url_prefix='/articles', static_folder='../static')
@@ -64,8 +64,11 @@ def articles_list():
 
 @article.route('/<int:pk>')
 def get_article(pk: int):
-    article_info = ARTICLES[pk - 1]
-    return render_template(
-        'articles/article.html',
-        article=article_info,
-    )
+    try:
+        article_info = ARTICLES[pk - 1]
+        return render_template(
+            'articles/article.html',
+            article=article_info,
+        )
+    except IndexError:
+        return redirect(url_for('article.articles_list'))
