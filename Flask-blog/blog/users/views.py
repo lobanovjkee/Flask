@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 
+import blog.articles.views
+
 user = Blueprint('user', __name__, url_prefix='/users', static_folder='../static')
 
 USERS = [
@@ -23,6 +25,6 @@ def users_list():
 def get_user(pk: int):
     try:
         user_info = USERS[pk - 1]
-        return render_template('users/user.html', user=user_info)
+        return render_template('users/user.html', user=user_info, articles=blog.articles.views.ARTICLES)
     except IndexError:
         return redirect(url_for('user.users_list'))
