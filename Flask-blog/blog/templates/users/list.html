@@ -7,7 +7,7 @@
 {% block content %}
     <ul class="mt-3">
         {% for user in users %}
-            <li class="fs-3"><a href="{{ url_for('user.get_user', pk=user.id) }}">{{ user.name }}</a></li>
+            <li class="fs-3"><a href="{{ url_for('user.profile', pk=user.id) }}">{{ user.email }}</a></li>
         {% endfor %}
     </ul>
 {% endblock %}

@@ -1,30 +1,31 @@
 from flask import Blueprint, render_template, request, redirect, url_for
+from flask_login import login_required
+from werkzeug.exceptions import NotFound
 
-import blog.articles.views
+# import blog.articles.views
+from blog.models import User
 
 user = Blueprint('user', __name__, url_prefix='/users', static_folder='../static')
-
-USERS = [
-    {'id': 1, 'name': 'Victor'},
-    {'id': 2, 'name': 'Anna'},
-    {'id': 3, 'name': 'Ivan'},
-    {'id': 4, 'name': 'Irina'},
-]
 
 
 @user.route('/')
 def users_list():
+    users = User.query.all()
     return render_template(
         'users/list.html',
-        users=USERS,
+        users=users,
         request=request,
     )
 
 
 @user.route('/<int:pk>')
-def get_user(pk: int):
-    try:
-        user_info = USERS[pk - 1]
-        return render_template('users/user.html', user=user_info, articles=blog.articles.views.ARTICLES)
-    except IndexError:
-        return redirect(url_for('user.users_list'))
+@login_required
+def profile(pk: int):
+    selected_user = User.query.filter_by(id=pk).one_or_none()
+    if not selected_user:
+        raise NotFound(f"User #{pk} doesn't exist!")
+
+    return render_template(
+        'users/profile.html',
+        user=selected_user,
+    )
