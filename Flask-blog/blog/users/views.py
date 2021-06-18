@@ -1,8 +1,12 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from flask_login import login_required
+from flask_login import login_required, current_user, login_user
 from werkzeug.exceptions import NotFound
 
 # import blog.articles.views
+from werkzeug.security import generate_password_hash
+
+from blog.extensions import db
+from blog.forms.user import UserRegisterForm
 from blog.models import User
 
 user = Blueprint('user', __name__, url_prefix='/users', static_folder='../static')
@@ -28,4 +32,36 @@ def profile(pk: int):
     return render_template(
         'users/profile.html',
         user=selected_user,
+    )
+
+
+@user.route('register', methods=['GET', 'POST'])
+def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('user.profile', pk=current_user.id))
+
+    form = UserRegisterForm(request.form)
+    errors = []
+    if request.method == 'POST' and form.validate_on_submit():
+        if User.query.filter_by(email=form.email.data).count():
+            form.email.errors.append('Email is not unique')
+            return render_template('users/register.html', form=form)
+
+        _user = User(
+            email=form.email.data,
+            first_name=form.first_name.data,
+            last_name=form.last_name.data,
+            password=generate_password_hash(form.password.data)
+        )
+
+        db.session.add(_user)
+        db.session.commit()
+
+        login_user(_user)
+        return redirect(url_for('user.profile', pk=_user.id))
+
+    return render_template(
+        'users/register.html',
+        form=form,
+        errors=errors,
     )
