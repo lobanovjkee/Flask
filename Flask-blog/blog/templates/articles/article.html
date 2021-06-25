@@ -8,7 +8,9 @@
     <div class="mt-4">
         <h1>{{ article.title|title }}</h1>
         <p>{{ article.text }}</p>
-
-        <h3><a href="{{ url_for('user.get_user', pk=article.author.id) }}">{{ article.author.name }}</a></h3>
+        
+        <div>Author: <a href="{{ url_for('user.profile', pk=article.author.user.id) }}">{{ article.author.user.first_name }} {{ article.author.user.last_name }}</a> ({{ article.author.id }})</div>
+        <div>Created at: {{ article.created_at }}</div>
+        <div>Updated at: {{ article.updated_at }}</div>
     </div>
 {% endblock %}
