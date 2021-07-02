@@ -16,7 +16,7 @@
                        href="{{ url_for('author.author_list') }}">Authors</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ 'active' if request.endpoint in ['article.articles_list', 'article.get_article'] }}"
+                    <a class="nav-link {{ 'active' if request.endpoint in ['article.articles_list', 'article.get_article', 'article.get_article_by_tag_name'] }}"
                        href="{{ url_for('article.articles_list') }}">Articles</a>
                 </li>
 

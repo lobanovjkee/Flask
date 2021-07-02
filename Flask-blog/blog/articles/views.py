@@ -79,3 +79,14 @@ def get_article(article_id: int):
         'articles/article.html',
         article=_article,
     )
+
+
+@article.route('/<string:tag_name>', methods=['GET'])
+def get_article_by_tag_name(tag_name: str):
+    _tag: Tag = Tag.query.filter_by(name=tag_name).options(joinedload(Tag.articles)).one_or_none()
+    if _tag is None:
+        raise NotFound
+    return render_template(
+        'articles/article_by_tag_name.html',
+        tag=_tag,
+    )
