@@ -13,7 +13,10 @@ def create_api_spec_plugin(app):
     api_spec_plugin = ApiSpecPlugin(
         app=app,
         tags={
-            'Tags': 'Tags API',
+            'Tag': 'Tag API',
+            'User': 'User API',
+            'Author': 'Author API',
+            'Article': 'Article API',
         }
     )
     return api_spec_plugin
@@ -28,5 +31,3 @@ admin = Admin(
     name='Blog Admin Panel',
     template_mode='bootstrap4',
 )
-
-
