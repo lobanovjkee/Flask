@@ -1,7 +1,8 @@
 from flask import Flask
+from flask_combo_jsonapi import Api
 
 from blog import commands
-from blog.extensions import db, login_manager, migrate, csrf, admin, api
+from blog.extensions import db, login_manager, migrate, csrf, admin, create_api_spec_plugin
 from blog.models import User
 
 
@@ -48,8 +49,13 @@ def register_blueprints(app: Flask):
 
 def register_api(app: Flask):
     from blog.api.tag import TagList, TagDetail
+    api = Api(
+        app=app,
+        plugins=[
+            create_api_spec_plugin(app),
+        ],
+    )
 
-    api.init_app(app)
     api.route(TagList, 'tag_list', '/api/tags/')
     api.route(TagDetail, 'tag_detail', '/api/tags/<int:id>')
 
