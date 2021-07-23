@@ -1,1 +1,1 @@
-### Блог на Flask, GeekBrains.
+### Блог на Flask, GeekBrains. 🧪
