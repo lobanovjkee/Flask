@@ -5,9 +5,9 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Articles: Count from RPC call {{ count_articles }}</h1>
+    <h1>Articles: {{ tag.name }}</h1>
     <ul class="mt-3">
-        {% for article in articles %}
+        {% for article in tag.articles %}
             <li class="fs-3"><a style="text-decoration: none;"
                     href="{{ url_for('article.get_article', article_id=article.id) }}">{{ article.title|title }}
                 ({{ article.author.user.first_name }} {{ article.author.user.last_name }})</a>

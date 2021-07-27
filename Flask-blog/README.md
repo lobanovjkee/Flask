@@ -1,1 +1,0 @@
-### Блог на Flask, GeekBrains.

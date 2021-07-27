@@ -9,6 +9,21 @@
         <h1>{{ article.title|title }}</h1>
         <p>{{ article.text }}</p>
 
-        <h3><a href="{{ url_for('user.get_user', pk=article.author.id) }}">{{ article.author.name }}</a></h3>
+        <div class="d-flex">
+            <div class="col-6">
+                <div>Author: <a
+                        href="{{ url_for('user.profile', pk=article.author.user.id) }}">{{ article.author.user.first_name }} {{ article.author.user.last_name }}</a>
+                    ({{ article.author.id }})
+                </div>
+                <div>Created at: {{ article.created_at }}</div>
+                <div>Updated at: {{ article.updated_at }}</div>
+            </div>
+            <div class="col-6">
+                {% for tag in article.tags %}
+                    <span class="badge bg-primary "><a class="text-decoration-none text-white" href="
+                            {{ url_for('article.get_article_by_tag_name', tag_name=tag.name) }}">{{ tag.name }}</a></span>
+                {% endfor %}
+            </div>
+        </div>
     </div>
 {% endblock %}
