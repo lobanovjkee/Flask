@@ -14,7 +14,7 @@ class ArticleListEvents(EventsResource):
 
 class ArticleDetailEvents(EventsResource):
 
-    def event_get_articles_count(self, *args, **kwargs):
+    def event_get_articles_count_by_author(self, *args, **kwargs):
         return {"count": Article.query.filter(Article.author_id == kwargs["id"]).count()}
 
 
