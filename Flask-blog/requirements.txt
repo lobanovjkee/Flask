@@ -12,3 +12,4 @@ Flask-WTF==0.15.1
 Flask-Admin==1.5.
 Flask-COMBO-JSONAPI==1.0.7
 ComboJSONAPI==1.1.1
+requests==2.26.0

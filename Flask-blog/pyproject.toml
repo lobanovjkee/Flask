@@ -18,6 +18,7 @@ Flask-WTF = "^0.15.1"
 Flask-Admin = "^1.5.8"
 Flask-COMBO-JSONAPI = "^1.0.7"
 ComboJSONAPI = "^1.1.1"
+requests = "^2.26.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
